@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ytain.modules.sys.dao.UserRoleDao">
+    <sql id="BASE_COLUMN">
+        b.id,
+        b.create_by AS "createBy",
+        b.create_time AS "createTime",
+        b.del_flag AS "delFlag",
+        b.update_by AS "updateBy",
+        b.update_time AS "updateTime",
+        b.name,
+        b.default_role AS "defaultRole",
+        b.description,
+        b.data_type AS "dataType"
+    </sql>
+    <select id="findByUserId" resultType="com.ytain.modules.sys.entity.Role">
+        select <include refid="BASE_COLUMN"/>
+        from sys_user_role a left join sys_role b on a.role_id=b.id where a.user_id=#{userId}
+    </select>
+
+    <select id="findByRoleId" resultType="com.ytain.modules.sys.entity.UserRole">
+        select a.id, a.create_by AS "createBy",
+               a.create_time AS "createTime",
+               a.del_flag AS "delFlag",
+               a.update_by AS "updateBy",
+               a.update_time AS "updateTime",
+               a.role_id AS "roleId",
+               a.user_id AS "userId"
+        from sys_user_role a  where a.role_id=#{roleId}
+    </select>
+    <delete id="deleteByUserId" parameterType="java.lang.String">
+       delete from sys_user_role where user_id=#{userId}
+    </delete>
+    <select id="findDepIdsByUserId" resultType="java.lang.String">
+        SELECT DISTINCT rd.office_id
+        FROM sys_role_menu rd
+        WHERE role_id IN
+              ( SELECT ur.role_id FROM sys_user_role ur WHERE ur.user_id = #{userId} )
+    </select>
+</mapper>

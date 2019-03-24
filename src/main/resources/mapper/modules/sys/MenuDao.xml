@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ytain.modules.sys.dao.MenuDao">
+    <sql id="BASE_COLUMN">
+        a.id,
+        a.create_by AS "createBy",
+        a.create_time AS "createTime",
+        a.del_flag AS "delFlag",
+        a.update_by AS "updateBy",
+        a.update_time AS "updateTime",
+        a.description,
+        a.name,
+        a.parent_id AS "parentId",
+        a.type,
+        a.sort_order AS "sortOrder",
+        a.component,
+        a.path,
+        a.title,
+        a.icon,
+        a.level,
+        a.button_type AS "buttonType",
+        a.status,a.url
+    </sql>
+    <select id="get" resultType="com.ytain.modules.sys.entity.Menu">
+        select <include refid="BASE_COLUMN"/> from sys_menu a where a.id=#{id}
+    </select>
+    <select id="findByTypeAndStatusOrderBySortOrder" resultType="com.ytain.modules.sys.entity.Menu">
+        select <include refid="BASE_COLUMN"/>from sys_menu a where a.type=#{type} and a.status=#{status} order by a.sort_order desc
+    </select>
+
+    <select id="findByLevelOrderBySortOrder" resultType="com.ytain.modules.sys.entity.Menu">
+        select <include refid="BASE_COLUMN"/>from sys_menu a where a.level=#{level}  order by a.sort_order desc
+    </select>
+
+    <select id="findByParentIdOrderBySortOrder" resultType="com.ytain.modules.sys.entity.Menu">
+        select <include refid="BASE_COLUMN"/>from sys_menu a where a.parent_id=#{parentId}  order by a.sort_order desc
+    </select>
+
+    <select id="findByTitle" resultType="com.ytain.modules.sys.entity.Menu">
+        select <include refid="BASE_COLUMN"/>from sys_menu a where a.title=#{title}
+    </select>
+
+    <select id="findByTitleLikeOrderBySortOrder" resultType="com.ytain.modules.sys.entity.Menu">
+        select <include refid="BASE_COLUMN"/>from sys_menu a where a.title  like concat('%',#{title},'%') order by a.sort_order desc
+    </select>
+    <select id="findByUserId" resultType="com.ytain.modules.sys.entity.Menu">
+        SELECT DISTINCT p.id, p.name, p.title, p.path, p.icon, p.type, p.component, p.level, p.button_type AS "buttonType", p.parent_id AS "parentId", p.sort_order AS "sortOrder", p.description, p.status, p.url
+        FROM sys_user u
+                 LEFT JOIN sys_user_role ur ON u.id = ur.user_id
+                 LEFT JOIN sys_role_menu rp ON ur.role_id = rp.role_id
+                 LEFT JOIN sys_menu p ON p.id = rp.menu_id
+        WHERE u.id = #{userId} AND p.status = 0
+        ORDER BY p.sort_order ASC
+    </select>
+</mapper>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ytain.modules.quartz.dao.QuartzJobDao">
+    <sql id="BASE_COLUMN">
+        id,
+        create_by AS "createBy",
+        create_time AS "createTime",
+        del_flag AS "delFlag",
+        update_by AS "updateBy",
+        update_time AS "updateTime",
+        cron_expression AS "cronExpression",
+        description,
+        job_class_name AS "jobClassName",
+        parameter,
+        status AS "requestParam"
+    </sql>
+    <select id="findList" resultType="com.ytain.modules.quartz.entity.QuartzJob">
+        select <include refid="BASE_COLUMN"/> from sys_quartz_job a
+        <where>
+            <if test="description!=null and description!=''">
+                a.description like  concat('%',#{description},'%')
+            </if>
+        </where>
+    </select>
+
+    <select id="get" resultType="com.ytain.modules.quartz.entity.QuartzJob">
+        select <include refid="BASE_COLUMN"/> from sys_quartz_job a
+        where a.id=#{id}
+    </select>
+</mapper>

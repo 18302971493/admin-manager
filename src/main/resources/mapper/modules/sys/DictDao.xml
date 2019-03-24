@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ytain.modules.sys.dao.DictDao">
+    <sql id="BASE_COLUMN">
+        a.id,
+        a.create_by AS "createBy",
+        a.create_time AS "createTime",
+        a.del_flag AS "delFlag",
+        a.update_by AS "updateBy",
+        a.update_time AS "updateTime",
+        a.description,
+        a.value,
+        a.parent_id AS "parentId",
+        a.label,
+        a.status,
+        a.type,
+        a.sort_order AS "sortOrder",
+        a.del_flag AS "delFlag"
+    </sql>
+    <select id="findList" resultType="com.ytain.modules.sys.entity.Dict">
+        select <include refid="BASE_COLUMN"/> from sys_dict a
+        <where>
+            <if test="label!=null and label!=''">
+                a.label like concat('%',#{label},'%')
+            </if>
+            <if test="status!=null">
+                a.status=#{status}
+            </if>
+        </where>
+    </select>
+    <select id="get" resultType="com.ytain.modules.sys.entity.Dict">
+        select <include refid="BASE_COLUMN"/> from sys_dict a where a.id=#{id}
+    </select>
+
+    <select id="findByType" resultType="com.ytain.modules.sys.entity.Dict">
+        select <include refid="BASE_COLUMN"/> from sys_dict a where a.type=#{type} and a.status=0 order by a.sort_order desc
+    </select>
+</mapper>

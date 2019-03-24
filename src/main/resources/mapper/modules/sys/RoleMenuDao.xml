@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ytain.modules.sys.dao.RoleMenuDao">
+    <sql id="BASE_COLUMN">
+        a.id,
+        a.create_by AS "createBy",
+        a.create_time AS "createTime",
+        a.del_flag AS "delFlag",
+        a.update_by AS "updateBy",
+        a.update_time AS "updateTime",
+        a.role_id AS "roleId",
+        a.menu_id AS "menuId"
+    </sql>
+    <select id="findByMenuId" resultType="com.ytain.modules.sys.entity.RoleMenu">
+        select <include refid="BASE_COLUMN"/> from sys_role_menu a where a.menu_id=#{menuId}
+    </select>
+    <select id="findByRoleId" resultType="com.ytain.modules.sys.entity.RoleMenu">
+        select <include refid="BASE_COLUMN"/> from sys_role_menu a where a.role_id=#{roleId}
+    </select>
+</mapper>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ytain.modules.sys.dao.OfficeDao">
+    <sql id="BASE_COLUMN">
+        a.id,
+        a.create_by AS "createBy",
+        a.create_time AS "createTime",
+        a.del_flag AS "delFlag",
+        a.update_by AS "updateBy",
+        a.update_time AS "updateTime",
+        a.parent_id AS "parentId",
+        a.sort_order AS "sortOrder",
+        a.status,
+        a.title,
+        a.is_parent AS "isParent"
+    </sql>
+    <select id="get" resultType="com.ytain.modules.sys.entity.Office">
+        select <include refid="BASE_COLUMN"/> from sys_office a where a.id=#{id}
+    </select>
+    <select id="findByParentIdOrderBySortOrder" resultType="com.ytain.modules.sys.entity.Office">
+        select <include refid="BASE_COLUMN"/> from sys_office a where a.parent_id=#{parentId} order by a.sort_order desc
+    </select>
+
+    <select id="findByParentIdAndIdInOrderBySortOrder" resultType="com.ytain.modules.sys.entity.Office">
+        select <include refid="BASE_COLUMN"/> from sys_office a where a.parent_id=#{parentId} and a.id in(#{officeId}) order by a.sort_order desc
+    </select>
+
+    <select id="findByParentIdAndStatusOrderBySortOrder" resultType="com.ytain.modules.sys.entity.Office">
+        select <include refid="BASE_COLUMN"/> from sys_office a where a.parent_id=#{parentId} and a.status=#{status} order by a.sort_order desc
+    </select>
+
+    <select id="findByTitleLikeOrderBySortOrder" resultType="com.ytain.modules.sys.entity.Office">
+        select <include refid="BASE_COLUMN"/> from sys_office a where  a.title  like concat('%',#{title},'%') order by a.sort_order asc
+    </select>
+    <select id="findByTitleLikeAndIdInOrderBySortOrder" resultType="com.ytain.modules.sys.entity.Office">
+        select <include refid="BASE_COLUMN"/> from sys_office a where  a.title  like concat('%',#{title},'%')  and a.id in(#{officeId}) order by a.sort_order asc
+    </select>
+</mapper>

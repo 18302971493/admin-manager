@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ytain.modules.sys.dao.LogDao">
+    <sql id="BASE_COLUMN">
+        id,
+        create_by AS "createBy",
+        create_time AS "createTime",
+        del_flag AS "delFlag",
+        update_by AS "updateBy",
+        update_time AS "updateTime",
+        cost_time AS "costTime",
+        ip,
+        ip_info AS "ipInfo",
+        name,
+        request_param AS "requestParam",
+        request_type AS "requestType",
+        request_url AS "request_url",
+        username,
+        log_type AS "logType"
+    </sql>
+    <select id="findList" resultType="com.ytain.modules.sys.entity.Log">
+        select <include refid="BASE_COLUMN"/> from sys_log a
+        where a.log_type=#{logType}
+    </select>
+    <delete id="deleteAll">
+        delete from sys_log
+    </delete>
+</mapper>

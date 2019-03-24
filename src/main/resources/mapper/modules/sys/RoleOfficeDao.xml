@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ytain.modules.sys.dao.RoleOfficeDao">
+    <sql id="BASE_COLUMN">
+        a.id,
+        a.create_by AS "createBy",
+        a.create_time AS "createTime",
+        a.del_flag AS "delFlag",
+        a.update_by AS "updateBy",
+        a.update_time AS "updateTime",
+        a.office_id AS "officeId",
+        a.role_id AS "roleId"
+    </sql>
+    <select id="findByRoleId" resultType="com.ytain.modules.sys.entity.RoleOffice">
+        select <include refid="BASE_COLUMN"/> from sys_role_office a where a.role_id=#{roleId}
+    </select>
+    <delete id="deleteByRoleId" parameterType="java.lang.String">
+        delete from sys_role_office where role_id=#{roleId}
+    </delete>
+    <delete id="deleteByOfficeId" parameterType="java.lang.String">
+        delete from sys_role_office where office_id=#{officeId}
+    </delete>
+</mapper>
