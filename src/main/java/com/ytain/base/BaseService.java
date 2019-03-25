@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.ytain.common.vo.PageVo;
 import com.ytain.common.vo.SearchVo;
+import com.ytain.config.exception.BaseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,7 +16,7 @@ import java.util.List;
  * @Date:Create：in 2019/3/22 21:37
  * @Modified By：
  */
-@Transactional(readOnly = true)
+@Transactional(readOnly = true,rollbackFor = BaseException.class)
 public abstract class BaseService<D extends BaseDao<T>, T extends BaseEntity<T>>  {
     @Autowired
     protected D dao;
@@ -23,31 +24,30 @@ public abstract class BaseService<D extends BaseDao<T>, T extends BaseEntity<T>>
      * 日志对象
      */
 
-    @Transactional(readOnly = false)
+    @Transactional(readOnly = false,rollbackFor = BaseException.class)
     public Integer insert(T entity) {
         return dao.insert(entity);
     }
 
-    @Transactional(readOnly = false)
+    @Transactional(readOnly = false,rollbackFor = BaseException.class)
     public Integer delete(String id) {
          Integer i=dao.deleteById(id);
          return i;
     }
-    @Transactional(readOnly = false)
+    @Transactional(readOnly = false,rollbackFor = BaseException.class)
     public void delete(T t) {
         dao.delete(t);
     }
 
-    @Transactional(readOnly = false)
+    @Transactional(readOnly = false,rollbackFor = BaseException.class)
     public void deleteAll() {
         dao.deleteAll();
     }
 
-    @Transactional(readOnly = false)
+    @Transactional(readOnly = false,rollbackFor = BaseException.class)
     public Integer update(T entity) {
-        return dao.update(entity);
+        return dao.updateById(entity);
     }
-
     public T get(String id) {
         return dao.get(id);
     }

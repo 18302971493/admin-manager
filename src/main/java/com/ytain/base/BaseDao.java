@@ -19,6 +19,7 @@ public  interface BaseDao<T> extends BaseMapper<T> {
     /**
      * 根据id删除
      * @param id
+     * @return
      */
     Integer deleteById(String id);
 
@@ -38,6 +39,7 @@ public  interface BaseDao<T> extends BaseMapper<T> {
      * @param entity
      * @return
      */
+    @Override
     Integer insert(T entity);
 
     /**
@@ -61,6 +63,12 @@ public  interface BaseDao<T> extends BaseMapper<T> {
      */
     Integer update(T entity);
 
+    /**
+     * 分页查询
+     * @param page
+     * @param t
+     * @return
+     */
     List<T> findList(Pagination page, T t);
 
 }
