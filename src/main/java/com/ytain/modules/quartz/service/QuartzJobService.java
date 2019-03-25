@@ -29,7 +29,6 @@ public class QuartzJobService extends BaseService<QuartzJobDao, QuartzJob> {
      */
     @Transactional(readOnly = false)
     public void add(String jobClassName, String cronExpression, String parameter){
-
         try {
             // 启动调度器
             scheduler.start();

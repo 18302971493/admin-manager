@@ -160,4 +160,17 @@ public interface CommonConstant {
      * 部门负责人类型 副负责人
      */
     Integer HEADER_TYPE_VICE = 1;
+    /**
+     * 上传文件类型
+     */
+    Integer FILE_TYPE=1;
+    /**
+     * 短信类型
+     */
+    Integer SMS_TYPE=2;
+    /**
+     * 邮箱类型
+     */
+    Integer EMAIL_TYPE=3;
+
 }

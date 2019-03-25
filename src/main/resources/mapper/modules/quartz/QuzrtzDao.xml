@@ -12,7 +12,7 @@
         description,
         job_class_name AS "jobClassName",
         parameter,
-        status AS "requestParam"
+        status
     </sql>
     <select id="findList" resultType="com.ytain.modules.quartz.entity.QuartzJob">
         select <include refid="BASE_COLUMN"/> from sys_quartz_job a
