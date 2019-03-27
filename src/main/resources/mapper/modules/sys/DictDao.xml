@@ -26,6 +26,9 @@
             <if test="status!=null">
                 a.status=#{status}
             </if>
+            <if test="type!=null and type!=''">
+                a.type=#{type}
+            </if>
         </where>
     </select>
     <select id="get" resultType="com.ytain.modules.sys.entity.Dict">

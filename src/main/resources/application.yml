@@ -31,7 +31,7 @@ spring:
         # 允许清空统计数据
         reset-enable: true
         login-username: root
-        login-password: ENC(F4B0s6u9xcDw3V+P0qC4CA==)
+        login-password: root
         # IP白名单 多个逗号分隔
         allow:
         # IP黑名单
@@ -40,13 +40,13 @@ spring:
         stat:
           # 显示慢sql 默认当超过3秒显示
           log-slow-sql: true
-  jpa:
-    # 显示sql
-    show-sql: true
-    # 自动生成表结构
-    generate-ddl: true
-    hibernate:
-      ddl-auto: none
+    # 文件大小上传配置
+    servlet:
+      multipart:
+        max-file-size: 3MB
+        max-request-size: 3MB
+  resources:
+    static-locations: classpath:static/,classpath:upload/,file:${spring.http.multipart.location}
   # Redis
   redis:
     host: 127.0.0.1
@@ -60,6 +60,10 @@ spring:
   data:
     elasticsearch:
       cluster-nodes: 127.0.0.1:9300
+  devtools:
+    restart:
+      additional-paths: src/main/java
+      exclude: upload/**,static/**
   # 定时任务
   quartz:
     # 任务信息存储至数据库
@@ -175,6 +179,7 @@ ignore:
   - /swagger-ui.html
   - /swagger-resources/**
   - /swagger/**
+  - /upload/**
   - /**/v2/api-docs
   - /**/*.js
   - /**/*.css

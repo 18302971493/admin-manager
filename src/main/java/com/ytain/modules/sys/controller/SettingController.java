@@ -43,14 +43,12 @@ public class SettingController {
     @RequestMapping(value = "/addSetting",method = RequestMethod.POST)
     @ApiOperation(value = "新增系统配置")
     public Result<Setting> addSetting(@RequestBody Setting setting){
-        settingService.insert(setting);
-        return new ResultUtil<Setting>().setData(setting);
-    }
-
-    @RequestMapping(value = "/editSetting",method = RequestMethod.POST)
-    @ApiOperation(value = "编辑系统配置")
-    public Result<Setting> editSetting(@RequestBody Setting setting){
-        settingService.update(setting);
+        Setting byType = settingService.findByType(setting.getType());
+        if(null!=byType){
+            settingService.update(setting);
+        }else{
+            settingService.insert(setting);
+        }
         return new ResultUtil<Setting>().setData(setting);
     }
 }

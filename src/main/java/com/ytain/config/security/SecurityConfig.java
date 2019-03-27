@@ -15,6 +15,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
 import org.springframework.security.config.annotation.web.configurers.SessionManagementConfigurer;
@@ -78,6 +79,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         //除配置文件忽略路径其它所有请求都需经过认证和授权
         for(String url:ignoredUrlsProperties.getUrls()){
+            log.info(url);
             registry.antMatchers(url).permitAll();
         }
 

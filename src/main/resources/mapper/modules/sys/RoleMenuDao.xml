@@ -17,4 +17,7 @@
     <select id="findByRoleId" resultType="com.ytain.modules.sys.entity.RoleMenu">
         select <include refid="BASE_COLUMN"/> from sys_role_menu a where a.role_id=#{roleId}
     </select>
+    <delete id="deleteByRoleId" parameterType="java.lang.String">
+        delete from sys_role_menu where role_id=#{roleId}
+    </delete>
 </mapper>

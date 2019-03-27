@@ -39,7 +39,6 @@ import java.util.List;
 @Api(description = "用户接口")
 @RequestMapping("/admin/user")
 @CacheConfig(cacheNames = "user")
-@Transactional
 public class UserController {
 
     @Autowired

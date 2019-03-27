@@ -25,9 +25,9 @@ public class FileUtil {
     @Autowired
     private StringRedisTemplate redisTemplate;
     @Autowired
-    private SettingService settingService;
+    private  SettingService settingService;
 
-    public JSONObject getOssSetting(){
+    public  JSONObject getOssSetting(){
 
         Setting setting=settingService.findByType(CommonConstant.FILE_TYPE);
         if(null==setting){
@@ -47,7 +47,7 @@ public class FileUtil {
 
         JSONObject object = getOssSetting();
         String day = DateUtil.format(DateUtil.date(), "yyyyMMdd");
-        String path =object.getString("file_path") + "/" + day;
+        String path =object.getString("filePath") + "/" + day;
         File dir = new File(path);
         if(!dir.exists()){
             dir.mkdirs();
@@ -58,7 +58,7 @@ public class FileUtil {
         }
         try {
             file.transferTo(f);
-            return path + "/" + key;
+            return object.getString("http") +object.getString("endpoint")+ "/" + key;
         } catch (IOException e) {
             log.error(e.toString());
             throw new BaseException("上传文件出错");
