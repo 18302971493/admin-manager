@@ -46,7 +46,7 @@ spring:
         max-file-size: 3MB
         max-request-size: 3MB
   resources:
-    static-locations: classpath:static/,classpath:upload/,file:${spring.http.multipart.location}
+    static-locations: classpath:/upload/,file:${spring.http.multipart.location}
   # Redis
   redis:
     host: 127.0.0.1
@@ -170,6 +170,7 @@ ignore:
   - /admin/email/resetByEmail
   - /admin/file/view/**
   - /admin/social/**
+  - /upload/
   - /admin/ws/**
   - /admin/user/regist
   - /admin/user/smsLogin
@@ -184,6 +185,7 @@ ignore:
   - /**/*.js
   - /**/*.css
   - /**/*.png
+  - /**/*.jpg
   - /**/*.ico
   - /test/**
 
